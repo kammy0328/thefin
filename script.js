@@ -77,6 +77,39 @@
     });
   }
 
+  /* portfolio project card: hover/tap to play */
+  document.querySelectorAll(".project-card[data-video-id]").forEach(function (card) {
+    var id = card.dataset.videoId;
+    var media = card.querySelector(".project-media");
+    var iframe = null;
+
+    function play() {
+      if (iframe) return;
+      iframe = document.createElement("iframe");
+      iframe.className = "project-iframe";
+      iframe.src =
+        "https://www.youtube-nocookie.com/embed/" +
+        id +
+        "?autoplay=1&mute=1&controls=1&rel=0&playsinline=1";
+      iframe.setAttribute("loading", "lazy");
+      iframe.setAttribute("allow", "autoplay; encrypted-media; picture-in-picture");
+      iframe.setAttribute("allowfullscreen", "");
+      iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+      media.appendChild(iframe);
+      media.classList.add("is-playing");
+    }
+    function stop() {
+      if (!iframe) return;
+      iframe.remove();
+      iframe = null;
+      media.classList.remove("is-playing");
+    }
+
+    card.addEventListener("mouseenter", play);
+    card.addEventListener("mouseleave", stop);
+    card.addEventListener("click", play);
+  });
+
   /* contact form -> sms link */
   var form = document.getElementById("contact-form");
   if (form) {

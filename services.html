@@ -24,19 +24,15 @@
 <header id="site-header">
   <div class="container header-inner">
     <a href="index.html" class="logo" aria-label="THE FIN 홈으로">
-      <span class="logo-word">THE<span class="logo-box">FIN</span></span>
+      <img src="assets/logo.png" alt="THE FIN">
     </a>
 
     <nav id="site-nav" class="site-nav">
-      <a href="index.html">홈</a>
-      <a href="services.html" class="active">서비스</a>
-      <a href="portfolio.html">포트폴리오</a>
-      <a href="contact.html">문의</a>
+      <a href="index.html">Home</a>
+      <a href="services.html" class="active">Services</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="contact.html">Contact</a>
     </nav>
-
-    <a href="tel:01058231350" class="btn btn-outline header-cta">
-      <span>010-5823-1350</span>
-    </a>
 
     <button id="nav-toggle" class="nav-toggle" aria-label="메뉴 열기" aria-expanded="false" aria-controls="site-nav">
       <span></span><span></span><span></span>
@@ -46,71 +42,62 @@
 
 <main>
 
-  <section class="section section-dark page-hero">
+  <section class="section page-hero">
     <div class="container">
       <p class="eyebrow reveal">SERVICES</p>
-      <h1 class="page-title reveal">무엇을 만드는가</h1>
     </div>
   </section>
 
-  <section class="section section-light">
+  <section class="section section-flush">
     <div class="container">
-      <div class="service-grid">
+      <div class="service-list">
 
-        <article class="service-card reveal">
-          <div class="service-num">01</div>
-          <div class="service-icon" aria-hidden="true">
-            <svg viewBox="0 0 40 40"><path d="M6 30 L20 10 L34 30" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 30 L12 20 M28 30 L28 20" stroke="currentColor" stroke-width="1.6" stroke-dasharray="2 3" stroke-linecap="round"/></svg>
+        <article class="service-row reveal">
+          <span class="service-index">01</span>
+          <div class="service-name">
+            <h3>REMOVE</h3>
+            <span>리무브 &amp; 클린업</span>
           </div>
-          <h3>REMOVE<span>리무브 &amp; 클린업</span></h3>
-          <p>와이어, 리그, 지지대, 불필요한 오브젝트까지. 촬영 중 어쩔 수 없이 남는 흔적을 프레임 단위로 완벽하게 제거합니다.</p>
+          <p class="service-desc">와이어, 리그, 지지대, 불필요한 오브젝트까지. 촬영 중 어쩔 수 없이 남는 흔적을 프레임 단위로 완벽하게 제거합니다.</p>
         </article>
 
-        <article class="service-card reveal">
-          <div class="service-num">02</div>
-          <div class="service-icon" aria-hidden="true">
-            <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="13" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M15 18h.01M25 18h.01M14 25c2 2.2 10 2.2 12 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <article class="service-row reveal">
+          <span class="service-index">02</span>
+          <div class="service-name">
+            <h3>BEAUTY</h3>
+            <span>뷰티 리터칭</span>
           </div>
-          <h3>BEAUTY<span>뷰티 리터칭</span></h3>
-          <p>피부, 표정, 디테일을 자연스럽게 다듬어 화면 속 인물을 가장 좋은 순간으로 완성합니다. 과하지 않게, 티 나지 않게.</p>
+          <p class="service-desc">피부, 표정, 디테일을 자연스럽게 다듬어 화면 속 인물을 가장 좋은 순간으로 완성합니다. 과하지 않게, 티 나지 않게.</p>
         </article>
 
-        <article class="service-card reveal">
-          <div class="service-num">03</div>
-          <div class="service-icon" aria-hidden="true">
-            <svg viewBox="0 0 40 40"><rect x="6" y="9" width="16" height="16" stroke="currentColor" stroke-width="1.6" fill="none"/><rect x="18" y="17" width="16" height="16" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+        <article class="service-row reveal">
+          <span class="service-index">03</span>
+          <div class="service-name">
+            <h3>COMPOSITING</h3>
+            <span>합성</span>
           </div>
-          <h3>COMPOSITING<span>합성</span></h3>
-          <p>그린스크린 키잉, 카메라 트래킹, 색 매치까지 — 서로 다른 소스를 하나의 장면처럼 이질감 없이 엮습니다.</p>
+          <p class="service-desc">그린스크린 키잉, 카메라 트래킹, 색 매치까지 — 서로 다른 소스를 하나의 장면처럼 이질감 없이 엮습니다.</p>
         </article>
 
-        <article class="service-card reveal">
-          <div class="service-num">04</div>
-          <div class="service-icon" aria-hidden="true">
-            <svg viewBox="0 0 40 40"><path d="M20 6 L34 13 V27 L20 34 L6 27 V13 Z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/><path d="M20 6 V20 M20 34 V20 M6 13 L20 20 L34 13" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <article class="service-row reveal">
+          <span class="service-index">04</span>
+          <div class="service-name">
+            <h3>3D</h3>
+            <span>3D 그래픽</span>
           </div>
-          <h3>3D<span>3D 그래픽</span></h3>
-          <p>3D 트래킹, 모델링, 라이팅 매치로 실사와 구분되지 않는 CG 요소를 제작해 장면에 통합합니다.</p>
+          <p class="service-desc">3D 트래킹, 모델링, 라이팅 매치로 실사와 구분되지 않는 CG 요소를 제작해 장면에 통합합니다.</p>
         </article>
 
-        <article class="service-card reveal">
-          <div class="service-num">05</div>
-          <div class="service-icon" aria-hidden="true">
-            <svg viewBox="0 0 40 40"><path d="M20 5 L23 17 L35 20 L23 23 L20 35 L17 23 L5 20 L17 17 Z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/></svg>
+        <article class="service-row reveal">
+          <span class="service-index">05</span>
+          <div class="service-name">
+            <h3>VFX</h3>
+            <span>시각특수효과</span>
           </div>
-          <h3>VFX<span>시각특수효과</span></h3>
-          <p>파티클, 시뮬레이션, 매트페인팅 등 상상하는 장면을 실제처럼 구현하는 풀 CG 작업까지 대응합니다.</p>
+          <p class="service-desc">파티클, 시뮬레이션, 매트페인팅 등 상상하는 장면을 실제처럼 구현하는 풀 CG 작업까지 대응합니다.</p>
         </article>
 
       </div>
-    </div>
-  </section>
-
-  <section class="section section-dark contact-band">
-    <div class="container contact-band-inner reveal">
-      <h2>프로젝트가 있으신가요?</h2>
-      <a href="tel:01058231350" class="phone-link">010-5823-1350</a>
-      <a href="contact.html" class="btn btn-solid">문의하기</a>
     </div>
   </section>
 
@@ -119,7 +106,7 @@
 <footer class="site-footer">
   <div class="container footer-inner">
     <a href="index.html" class="logo" aria-label="THE FIN 홈으로">
-      <span class="logo-word">THE<span class="logo-box">FIN</span></span>
+      <img src="assets/logo.png" alt="THE FIN">
     </a>
     <a href="tel:01058231350" class="footer-phone">010-5823-1350</a>
     <p class="footer-copy">© 2026 THE FIN. All rights reserved.</p>
