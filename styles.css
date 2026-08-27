@@ -165,41 +165,40 @@ img, svg{ display: block; max-width: 100%; }
 @keyframes drift2{ from{ transform: translate(0,0) scale(1); } to{ transform: translate(-8vw, -6vh) scale(0.9); } }
 @keyframes drift3{ from{ transform: translate(0,0) rotate(0deg) scale(1); } to{ transform: translate(-5vw, 10vh) rotate(40deg) scale(1.1); } }
 
-.landing-content{ position: relative; z-index: 1; display: flex; justify-content: center; padding: 0 var(--pad); }
-.landing-glass{
-  display: flex; flex-direction: column; align-items: center; gap: 30px;
-  padding: clamp(36px, 6vw, 64px) clamp(32px, 8vw, 88px);
-  border-radius: 24px;
-  background: rgba(245,245,242,0.035);
-  border: 1px solid rgba(245,245,242,0.09);
-  backdrop-filter: blur(22px) saturate(140%);
-  -webkit-backdrop-filter: blur(22px) saturate(140%);
-  box-shadow: 0 30px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(245,245,242,0.08);
-  position: relative; overflow: hidden;
-}
-.landing-glass::before{
-  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 50%;
-  background: linear-gradient(180deg, rgba(245,245,242,0.06), rgba(245,245,242,0));
-  pointer-events: none;
+.landing-content{
+  position: relative; z-index: 1; padding: 0 var(--pad);
+  display: flex; flex-direction: column; align-items: center; gap: 34px;
 }
 .landing-logo img{
   width: clamp(130px, 22vw, 220px);
-  height: auto; position: relative;
+  height: auto;
 }
-.landing-links{ display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; position: relative; }
+.landing-links{ display: flex; flex-wrap: wrap; justify-content: center; gap: 32px; }
+.landing-link{
+  font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--gray); font-weight: 500;
+  transition: color .2s var(--ease), font-weight .2s var(--ease);
+}
+.landing-link:hover{ color: var(--white); font-weight: 800; }
 
-/* ============ SERVICE LIST ============ */
-.service-list{ border-top: 1px solid var(--border-on-dark); }
-.service-row{
-  display: flex; flex-wrap: wrap; align-items: baseline; gap: clamp(16px, 4vw, 48px);
-  padding: clamp(22px, 3vw, 30px) 0;
+/* ============ SERVICE GRID (fits one screen) ============ */
+.section-compact{ padding-bottom: clamp(32px, 5vw, 56px); }
+.service-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  border-top: 1px solid var(--border-on-dark);
+  border-left: 1px solid var(--border-on-dark);
+}
+.service-tile{
+  display: flex; flex-direction: column; gap: 6px;
+  padding: clamp(16px, 2vw, 22px);
+  border-right: 1px solid var(--border-on-dark);
   border-bottom: 1px solid var(--border-on-dark);
 }
-.service-index{ font-size: 13px; color: var(--gray); min-width: 24px; }
-.service-name{ min-width: 200px; }
-.service-name h3{ font-size: 18px; letter-spacing: -0.01em; margin-bottom: 4px; }
-.service-name span{ font-size: 13px; color: var(--gray); }
-.service-desc{ flex: 1 1 320px; color: var(--gray); font-size: 14.5px; line-height: 1.7; }
+.service-index{ font-size: 12px; color: var(--gray); }
+.service-tile h3{ font-size: 17px; letter-spacing: -0.01em; margin-top: 2px; }
+.service-sub{ font-size: 12.5px; color: var(--gray); }
+.service-tile p{ margin-top: 6px; font-size: 13px; color: var(--gray); line-height: 1.5; }
 
 /* ============ TIMELINE (about) ============ */
 .timeline{ border-top: 1px solid var(--border-on-dark); max-width: 640px; }
@@ -289,8 +288,4 @@ img, svg{ display: block; max-width: 100%; }
   .site-nav a{ font-size: 18px; color: var(--white); }
   .nav-toggle{ display: flex; }
   .contact-wrap{ grid-template-columns: 1fr; }
-}
-
-@media (max-width: 560px){
-  .service-name{ min-width: 100%; }
 }
