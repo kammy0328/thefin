@@ -1,9 +1,6 @@
 (function () {
   "use strict";
 
-  var PHONE = "01058231350";
-  var PHONE_DISPLAY = "010-5823-1350";
-
   /* header background on scroll */
   var header = document.getElementById("site-header");
   function onScroll() {
@@ -56,78 +53,63 @@
     });
   }
 
-  /* copy phone number */
-  var copyBtn = document.getElementById("copy-phone");
-  if (copyBtn) {
-    copyBtn.addEventListener("click", function () {
-      var done = function () {
-        var original = copyBtn.textContent;
-        copyBtn.textContent = "복사되었습니다";
-        setTimeout(function () {
-          copyBtn.textContent = original;
-        }, 1800);
-      };
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(PHONE_DISPLAY).then(done).catch(function () {
-          window.prompt("전화번호를 복사하세요", PHONE_DISPLAY);
-        });
-      } else {
-        window.prompt("전화번호를 복사하세요", PHONE_DISPLAY);
-      }
-    });
-  }
-
-  /* portfolio project card: hover/tap to play */
+  /* portfolio: click a card with a video to play it inline */
   document.querySelectorAll(".project-card[data-video-id]").forEach(function (card) {
-    var id = card.dataset.videoId;
     var media = card.querySelector(".project-media");
-    var iframe = null;
-
-    function play() {
-      if (iframe) return;
-      iframe = document.createElement("iframe");
+    media.addEventListener("click", function () {
+      if (media.querySelector(".project-iframe")) return;
+      var iframe = document.createElement("iframe");
       iframe.className = "project-iframe";
       iframe.src =
         "https://www.youtube-nocookie.com/embed/" +
-        id +
-        "?autoplay=1&mute=1&controls=1&rel=0&playsinline=1";
-      iframe.setAttribute("loading", "lazy");
+        card.dataset.videoId +
+        "?autoplay=1&rel=0&playsinline=1";
       iframe.setAttribute("allow", "autoplay; encrypted-media; picture-in-picture");
       iframe.setAttribute("allowfullscreen", "");
       iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
       media.appendChild(iframe);
       media.classList.add("is-playing");
-    }
-    function stop() {
-      if (!iframe) return;
-      iframe.remove();
-      iframe = null;
-      media.classList.remove("is-playing");
-    }
-
-    card.addEventListener("mouseenter", play);
-    card.addEventListener("mouseleave", stop);
-    card.addEventListener("click", play);
+    });
   });
 
-  /* contact form -> sms link */
-  var form = document.getElementById("contact-form");
-  if (form) {
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      var name = form.name.value.trim();
-      var phone = form.phone.value.trim();
-      var message = form.message.value.trim();
-
-      if (!name || !phone || !message) {
-        form.reportValidity();
-        return;
-      }
-
-      var body =
-        "[THE FIN 문의]\n이름/회사명: " + name + "\n연락처: " + phone + "\n문의내용: " + message;
-      var smsUrl = "sms:" + PHONE + "?body=" + encodeURIComponent(body);
-      window.location.href = smsUrl;
+  /* portfolio: category filter buttons, built from the cards on the page */
+  var filterBar = document.getElementById("filters");
+  var grid = document.getElementById("project-grid");
+  if (filterBar && grid) {
+    var LABELS = {
+      drama: "Drama",
+      mv: "Music Video",
+      film: "Film",
+      ad: "Commercial"
+    };
+    var cards = Array.prototype.slice.call(grid.querySelectorAll(".project-card"));
+    var present = Object.keys(LABELS).filter(function (key) {
+      return cards.some(function (card) {
+        return card.dataset.category === key;
+      });
     });
+
+    function addButton(value, label) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "filter-btn";
+      btn.dataset.filter = value;
+      btn.textContent = label;
+      btn.addEventListener("click", function () {
+        filterBar.querySelectorAll(".filter-btn").forEach(function (b) {
+          b.classList.toggle("active", b === btn);
+        });
+        cards.forEach(function (card) {
+          card.hidden = value !== "all" && card.dataset.category !== value;
+        });
+      });
+      filterBar.appendChild(btn);
+    }
+
+    addButton("all", "All");
+    present.forEach(function (key) {
+      addButton(key, LABELS[key]);
+    });
+    filterBar.querySelector(".filter-btn").classList.add("active");
   }
 })();
