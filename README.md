@@ -35,8 +35,7 @@ python3 -m http.server 8000
 ```html
 <article class="project-card reveal" data-category="drama" data-video-id="유튜브ID">
   <button type="button" class="project-media" aria-label="작품명 영상 재생">
-    <img src="assets/work/파일명.jpg" alt="작품명" loading="lazy">
-    <span class="project-hover" aria-hidden="true">Play</span>
+    <img src="assets/work/파일명.jpg" alt="작품명" width="1280" height="720" loading="lazy">
     <span class="project-works">VFX · COMP · 3D</span>
   </button>
   <div class="project-meta">
@@ -48,9 +47,9 @@ python3 -m http.server 8000
 ```
 
 - **작업 종류**가 여러 개면 `.project-works`에 ` · `로 이어 붙이면 됩니다 (`VFX · COMP · 3D`).
-- **영상이 없는 작품**은 `data-video-id`를 빼고, `<button class="project-media">`를 `<div class="project-media">`로 바꾼 뒤 `.project-hover` 줄을 지우세요. (`portfolio.html`의 드라마 카드 참고)
+- **영상이 없는 작품**은 `data-video-id`를 빼고 `<button class="project-media">`를 `<div class="project-media">`로 바꾸세요. (`portfolio.html`의 드라마 카드 참고)
 - **카테고리**는 `data-category` 값으로 `drama` / `mv` / `film` / `ad` 중 하나를 씁니다. 필터 버튼은 실제 존재하는 카테고리만 자동 생성되므로 버튼을 따로 추가할 필요가 없습니다. 새 카테고리를 쓰려면 `script.js`의 `LABELS`에 항목을 추가하세요.
-- **썸네일**은 16:9로 맞춰 `assets/work/`에 넣으세요. 세로 포스터라면 인물이 보이도록 잘라서 쓰면 됩니다.
+- **썸네일**은 원본 비율 그대로 `assets/work/`에 넣으면 됩니다. 영상 스틸(16:9)이든 세로 포스터든 이미지 비율대로 표시됩니다. 다만 `<img>`의 `width`/`height` 속성은 실제 픽셀 크기로 적어주세요 — 로딩 중 레이아웃이 밀리는 것을 막아줍니다.
 
 ## 커스터마이징 메모
 

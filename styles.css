@@ -207,18 +207,19 @@ img, svg{ display: block; max-width: 100%; }
 /* ============ PORTFOLIO GRID ============ */
 .project-grid{
   display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: clamp(28px, 3vw, 40px);
+  gap: clamp(28px, 3vw, 40px); align-items: start;
 }
 .project-card[hidden]{ display: none; }
+/* the image keeps its own aspect ratio (16:9 stills, portrait posters) */
 .project-media{
-  position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden;
+  position: relative; width: 100%; overflow: hidden;
   background: var(--black-soft); border: 1px solid var(--border-on-dark);
 }
-.project-media img{ width: 100%; height: 100%; object-fit: cover; transition: opacity .3s var(--ease); }
-/* scrim so the work labels stay readable over bright thumbnails */
+.project-media img{ width: 100%; height: auto; }
+/* scrim sized to the label, not the image, so tall posters stay visible */
 .project-media::after{
-  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 46%;
-  background: linear-gradient(0deg, rgba(10,10,10,0.82), rgba(10,10,10,0));
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 96px;
+  background: linear-gradient(0deg, rgba(10,10,10,0.85), rgba(10,10,10,0));
   pointer-events: none;
 }
 
@@ -228,16 +229,6 @@ button.project-media{
   cursor: pointer; text-align: left;
 }
 button.project-media:focus-visible{ outline: 2px solid var(--white); outline-offset: 2px; }
-button.project-media:hover img{ opacity: 0.45; }
-
-.project-hover{
-  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-  z-index: 1; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
-  font-weight: 700; color: var(--white);
-  opacity: 0; transition: opacity .3s var(--ease);
-}
-button.project-media:hover .project-hover,
-button.project-media:focus-visible .project-hover{ opacity: 1; }
 
 .project-works{
   position: absolute; left: 12px; bottom: 12px; right: 12px; z-index: 1;
