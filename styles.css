@@ -214,26 +214,36 @@ img, svg{ display: block; max-width: 100%; }
   position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden;
   background: var(--black-soft); border: 1px solid var(--border-on-dark);
 }
-.project-media img{ width: 100%; height: 100%; object-fit: cover; }
-.project-iframe{ position: absolute; inset: 0; width: 100%; height: 100%; border: 0; z-index: 2; }
-.project-card[data-video-id] .project-media{ cursor: pointer; }
-.project-play{
+.project-media img{ width: 100%; height: 100%; object-fit: cover; transition: opacity .3s var(--ease); }
+/* scrim so the work labels stay readable over bright thumbnails */
+.project-media::after{
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 46%;
+  background: linear-gradient(0deg, rgba(10,10,10,0.82), rgba(10,10,10,0));
+  pointer-events: none;
+}
+
+/* clickable media is a <button>; strip the native chrome */
+button.project-media{
+  display: block; padding: 0; margin: 0; font: inherit; color: inherit;
+  cursor: pointer; text-align: left;
+}
+button.project-media:focus-visible{ outline: 2px solid var(--white); outline-offset: 2px; }
+button.project-media:hover img{ opacity: 0.45; }
+
+.project-hover{
   position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-  width: 52px; height: 52px; border-radius: 50%; background: rgba(245,245,242,0.9);
-  color: var(--black); display: flex; align-items: center; justify-content: center; z-index: 1;
-  transition: opacity .2s var(--ease), transform .2s var(--ease);
+  z-index: 1; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  font-weight: 700; color: var(--white);
+  opacity: 0; transition: opacity .3s var(--ease);
 }
-.project-media:hover .project-play{ transform: translate(-50%, -50%) scale(1.06); }
-.project-play svg{ width: 20px; height: 20px; }
-.project-tag{
-  position: absolute; left: 12px; bottom: 12px; z-index: 1;
-  font-size: 10.5px; letter-spacing: 0.14em; font-weight: 600;
-  padding: 4px 9px; color: var(--white);
-  background: rgba(10,10,10,0.62); border: 1px solid var(--border-on-dark-strong);
-  backdrop-filter: blur(6px);
+button.project-media:hover .project-hover,
+button.project-media:focus-visible .project-hover{ opacity: 1; }
+
+.project-works{
+  position: absolute; left: 12px; bottom: 12px; right: 12px; z-index: 1;
+  font-size: 10.5px; letter-spacing: 0.14em; font-weight: 600; line-height: 1.6;
+  color: var(--white);
 }
-.project-media.is-playing .project-play,
-.project-media.is-playing .project-tag{ opacity: 0; pointer-events: none; }
 
 .project-meta{ padding-top: 16px; }
 .project-meta h3{ font-size: 17px; letter-spacing: -0.01em; }
@@ -248,6 +258,33 @@ img, svg{ display: block; max-width: 100%; }
 .portfolio-note{
   margin-top: clamp(36px, 5vw, 56px); font-size: 12.5px; color: var(--gray-dark); line-height: 1.7;
 }
+
+/* ============ VIDEO MODAL ============ */
+body.modal-open{ overflow: hidden; }
+.video-modal{
+  position: fixed; inset: 0; z-index: 2000;
+  display: flex; align-items: center; justify-content: center;
+  padding: clamp(20px, 5vw, 64px);
+  background: rgba(6,6,6,0.94);
+  backdrop-filter: blur(10px);
+  opacity: 0; visibility: hidden;
+  transition: opacity .3s var(--ease), visibility .3s var(--ease);
+}
+.video-modal.open{ opacity: 1; visibility: visible; }
+.video-modal-dialog{
+  position: relative; width: min(1080px, 100%); aspect-ratio: 16 / 9;
+  background: #000; border: 1px solid var(--border-on-dark);
+}
+.video-modal-dialog iframe{ position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video-modal-close{
+  position: absolute; right: 0; bottom: calc(100% + 14px);
+  width: 34px; height: 34px; padding: 0;
+  background: none; border: 0; color: var(--gray);
+  display: flex; align-items: center; justify-content: center;
+  transition: color .2s var(--ease);
+}
+.video-modal-close:hover{ color: var(--white); }
+.video-modal-close svg{ width: 20px; height: 20px; }
 
 /* ============ CONTACT ============ */
 .contact-stage{
@@ -278,6 +315,7 @@ img, svg{ display: block; max-width: 100%; }
   display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0,0,0,0.35);
 }
 .mobile-call svg{ width: 24px; height: 24px; }
+body.modal-open .mobile-call{ display: none; }
 @media (min-width: 900px){ .mobile-call{ display: none; } }
 
 /* ============ RESPONSIVE ============ */

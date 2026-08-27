@@ -53,24 +53,65 @@
     });
   }
 
-  /* portfolio: click a card with a video to play it inline */
-  document.querySelectorAll(".project-card[data-video-id]").forEach(function (card) {
-    var media = card.querySelector(".project-media");
-    media.addEventListener("click", function () {
-      if (media.querySelector(".project-iframe")) return;
+  /* portfolio: clicking a card with a video opens it in a modal */
+  var videoCards = document.querySelectorAll(".project-card[data-video-id]");
+  if (videoCards.length) {
+    var lastFocused = null;
+
+    var modal = document.createElement("div");
+    modal.className = "video-modal";
+    modal.setAttribute("role", "dialog");
+    modal.setAttribute("aria-modal", "true");
+    modal.setAttribute("aria-label", "영상 재생");
+    modal.innerHTML =
+      '<div class="video-modal-dialog">' +
+      '<button type="button" class="video-modal-close" aria-label="닫기">' +
+      '<svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>' +
+      "</button></div>";
+    document.body.appendChild(modal);
+
+    var dialog = modal.querySelector(".video-modal-dialog");
+    var closeBtn = modal.querySelector(".video-modal-close");
+
+    function openModal(videoId, trigger) {
+      lastFocused = trigger;
       var iframe = document.createElement("iframe");
-      iframe.className = "project-iframe";
       iframe.src =
         "https://www.youtube-nocookie.com/embed/" +
-        card.dataset.videoId +
+        videoId +
         "?autoplay=1&rel=0&playsinline=1";
-      iframe.setAttribute("allow", "autoplay; encrypted-media; picture-in-picture");
+      iframe.setAttribute("allow", "autoplay; encrypted-media; picture-in-picture; fullscreen");
       iframe.setAttribute("allowfullscreen", "");
       iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
-      media.appendChild(iframe);
-      media.classList.add("is-playing");
+      dialog.appendChild(iframe);
+      modal.classList.add("open");
+      document.body.classList.add("modal-open");
+      closeBtn.focus();
+    }
+
+    function closeModal() {
+      if (!modal.classList.contains("open")) return;
+      modal.classList.remove("open");
+      document.body.classList.remove("modal-open");
+      var iframe = dialog.querySelector("iframe");
+      if (iframe) iframe.remove();
+      if (lastFocused) lastFocused.focus();
+    }
+
+    videoCards.forEach(function (card) {
+      card.querySelector(".project-media").addEventListener("click", function () {
+        openModal(card.dataset.videoId, this);
+      });
     });
-  });
+
+    closeBtn.addEventListener("click", closeModal);
+    modal.addEventListener("click", function (e) {
+      if (e.target === modal) closeModal();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeModal();
+    });
+  }
 
   /* portfolio: category filter buttons, built from the cards on the page */
   var filterBar = document.getElementById("filters");
