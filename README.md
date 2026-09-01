@@ -12,7 +12,8 @@
 - `styles.css` — 블랙 미니멀 테마 스타일
 - `script.js` — 헤더/모바일 메뉴, 스크롤 리빌, 포트폴리오 필터 및 영상 모달
 - `assets/logo.png`, `assets/favicon.svg` — 로고와 파비콘
-- `assets/work/` — 포트폴리오 썸네일 (16:9)
+- `assets/work/` — 포트폴리오 썸네일
+- `vercel.json` — Vercel 배포 설정 (주소에서 `.html` 제거)
 
 빌드 도구나 서버 없이 정적 파일로만 동작합니다.
 
@@ -27,6 +28,10 @@ python3 -m http.server 8000
 ## 배포
 
 정적 파일이므로 GitHub Pages, Vercel, Netlify 등 어떤 정적 호스팅에도 그대로 올리면 됩니다.
+
+Vercel에 올리면 `vercel.json`의 `cleanUrls` 설정이 적용돼 주소에서 `.html`이 사라집니다
+(`/about.html` → `/about`, `/index.html` → `/`). 링크는 `.html`을 그대로 두었기 때문에
+다른 호스팅으로 옮겨도 (`vercel.json`이 무시될 뿐) 링크는 정상 동작합니다.
 
 ## 포트폴리오 추가하기
 
