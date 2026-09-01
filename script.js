@@ -53,6 +53,22 @@
     });
   }
 
+  /* vimeo embeds: reveal only once the player reports ready, so a slow or
+     blocked embed never flashes its light error page over the black theme */
+  document.querySelectorAll("iframe.vimeo-fade").forEach(function (frame) {
+    if (!window.Vimeo || !window.Vimeo.Player) return;
+    try {
+      new window.Vimeo.Player(frame)
+        .ready()
+        .then(function () {
+          frame.classList.add("is-ready");
+        })
+        .catch(function () {});
+    } catch (e) {
+      /* leave it hidden; the black background stands in */
+    }
+  });
+
   /* portfolio: clicking a card with a video opens it in a modal */
   var videoCards = document.querySelectorAll(".project-card[data-video-id]");
   if (videoCards.length) {

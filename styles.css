@@ -125,28 +125,33 @@ img, svg{ display: block; max-width: 100%; }
   position: relative; min-height: 100svh; display: flex; align-items: center; justify-content: center;
   overflow: hidden; background: var(--black);
 }
-.landing-bg{ position: absolute; inset: 0; z-index: 0; overflow: hidden; }
-.landing-bg .blob{
-  position: absolute; border-radius: 50%; filter: blur(70px); will-change: transform;
+.landing-bg{ position: absolute; inset: 0; z-index: 0; overflow: hidden; background: var(--black); }
+/* scale the 16:9 player to cover the viewport, like object-fit: cover */
+.landing-video{
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 100vw; height: 56.25vw;
+  min-width: 177.78vh; min-height: 100vh;
+  border: 0; pointer-events: none;
 }
-.blob-1{
-  width: 46vw; height: 46vw; top: -12%; left: -10%;
-  background: radial-gradient(circle at 30% 30%, rgba(245,245,242,0.10), rgba(245,245,242,0) 70%);
-  animation: drift1 30s ease-in-out infinite alternate;
+/* players stay hidden until they report ready, so a slow or blocked
+   embed never flashes its light error page over the black theme */
+.vimeo-fade{ opacity: 0; transition: opacity 1s var(--ease); }
+.vimeo-fade.is-ready{ opacity: 1; }
+/* frosted pane the logo sits in front of */
+.landing-veil{
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(10,10,10,0.52), rgba(10,10,10,0.72));
+  backdrop-filter: blur(18px) saturate(115%);
+  -webkit-backdrop-filter: blur(18px) saturate(115%);
 }
-.blob-2{
-  width: 38vw; height: 38vw; bottom: -16%; right: -10%;
-  background: radial-gradient(circle at 60% 60%, rgba(245,245,242,0.08), rgba(245,245,242,0) 70%);
-  animation: drift2 36s ease-in-out infinite alternate;
+.landing-veil::after{
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(120deg,
+    rgba(245,245,242,0.06) 0%,
+    rgba(245,245,242,0) 42%,
+    rgba(245,245,242,0) 62%,
+    rgba(245,245,242,0.035) 100%);
 }
-.blob-3{
-  width: 30vw; height: 30vw; top: 32%; left: 58%;
-  background: radial-gradient(circle, rgba(245,245,242,0.06), rgba(245,245,242,0) 70%);
-  animation: drift3 24s ease-in-out infinite alternate;
-}
-@keyframes drift1{ from{ transform: translate(0,0) scale(1); } to{ transform: translate(6vw, 8vh) scale(1.15); } }
-@keyframes drift2{ from{ transform: translate(0,0) scale(1); } to{ transform: translate(-8vw, -6vh) scale(0.9); } }
-@keyframes drift3{ from{ transform: translate(0,0) rotate(0deg) scale(1); } to{ transform: translate(-5vw, 10vh) rotate(40deg) scale(1.1); } }
 
 .landing-content{
   position: relative; z-index: 1; padding: 0 var(--pad);
@@ -182,6 +187,13 @@ img, svg{ display: block; max-width: 100%; }
 .service-tile h3{ font-size: 17px; letter-spacing: -0.01em; margin-top: 2px; }
 .service-sub{ font-size: 12.5px; color: var(--gray); }
 .service-tile p{ margin-top: 6px; font-size: 13px; color: var(--gray); line-height: 1.5; }
+
+/* ============ SHOWREEL (about) ============ */
+.video-frame{
+  position: relative; width: 100%; aspect-ratio: 16 / 9;
+  background: var(--black-soft); border: 1px solid var(--border-on-dark);
+}
+.video-frame iframe{ position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
 /* ============ TIMELINE (about) ============ */
 .timeline{ border-top: 1px solid var(--border-on-dark); max-width: 640px; }
